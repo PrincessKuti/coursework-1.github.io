@@ -24,6 +24,12 @@
 
         <!-- Lessons List -->
         <div v-if="!showCart">
+            <!-- Search -->
+            <div class="mb-8">
+      <input v-model="searchQuery" type="text" placeholder="Search lessons"
+        class="p-2 block w-full border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <!-- Sort Options -->
             <div class="flex justify-between mb-8">
                 <div class="flex space-x-4">
                     <label v-for="option in sortOptions" :key="option" :for="`sortAttribute${option}`"
@@ -42,6 +48,8 @@
                     </label>
                 </div>
             </div>
+
+            <!-- Lesson List -->
             <div id="lessons-list" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <div v-for="lesson in sortedLessons" :key="lesson.id"
                     class="bg-white rounded-lg shadow-md overflow-hidden p-4 border-l-4 border-blue-500 mb-4">
@@ -136,20 +144,22 @@
                     phone: '',
                 },
                 orderSubmitted: false,
+                searchQuery: '',
             },
             computed: {
                 sortedLessons() {
-                    if (this.lessons.length <= 0) return [];
-
-                    const sortOrder = this.orderBy === "asc" ? 1 : -1;
-
-                    return this.lessons.slice().sort((a, b) => {
-                        const aValue = this.getSortValue(a);
-                        const bValue = this.getSortValue(b);
-
-                        return sortOrder * this.compareValues(aValue, bValue);
-                    });
-                },
+                    const query = this.searchQuery.toLowerCase().trim();
+          
+                    return this.lessons
+                      .filter(lesson =>
+                        lesson.subject.toLowerCase().includes(query) ||
+                        lesson.location.toLowerCase().includes(query)
+                      )
+                      .sort((a, b) => {
+                        const order = this.orderBy === 'asc' ? 1 : -1;
+                        return a[this.sortBy] > b[this.sortBy] ? order : -order;
+                      });
+                  },
                 isValidCheckout() {
                     // Check if name and phone are valid
                     const nameRegex = /^[a-zA-Z\s]+$/;
