@@ -77,6 +77,6 @@ const lessons = [
         location: 'Room 105',
         price: 55,
         spaces: 5,
-        image: "10jpgg",
+        image: "10.jpg",
     },
 ]

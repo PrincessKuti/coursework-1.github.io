@@ -2,49 +2,99 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Coursework 1 - Lessons</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style type="text/tailwindcss">
-        @layer components {
-          .responsive-container {
-            @apply px-6 mx-auto max-w-full lg:px-12 py-4;
-          }
-        }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coursework 1 - Lessons</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 
-<body>
-    <div id="app" class="responsive-container space-y-6">
-        <h1 class="text-2xl font-semibold text-blue-500">Vue Lessons</h1>
-        <div id="lessons-list" class="grid grid-cols-3 gap-12">
-                <div v-for="lesson in lessons" :key="lesson.id" class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img :src="`./imgs/${lesson.image}`" :alt="lesson.subject" class="w-full h-60 object-cover object-center">
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold mb-2"><strong>Subject: </strong>{{ lesson.subject }}</h2>
-                        <p class="text-gray-600 mb-2"><strong>Location:</strong> {{ lesson.location }}</p>
-                        <p class="text-gray-800"><strong>Price:</strong> £{{ lesson.price }}</p>
-                        <p class="text-gray-600"><strong>Spaces:</strong> {{ lesson.spaces }}</p>
-                    </div>
-                </div>
-        </div>
+<body class="bg-gray-100">
 
-
-
+  <div id="app" class="max-w-6xl mx-auto my-8">
+    <div class="flex justify-between mb-8">
+      <div class="flex space-x-4">
+        <label v-for="option in sortOptions" :key="option" :for="`sortAttribute${option}`" class="text-lg">
+          <input type="radio" :id="`sortAttribute${option}`" v-model="sortBy" :value="option" @change="sortLessons">
+          {{ capitalize(option) }}
+        </label>
+      </div>
+      <div class="flex space-x-4">
+        <label v-for="order in orders" :key="order.value" :for="`sortOrder${order.value}`" class="text-lg">
+          <input type="radio" :id="`sortOrder${order.value}`" v-model="orderBy" :value="order.value" @change="sortLessons">
+          {{ order.text }}
+        </label>
+      </div>
     </div>
 
-    <script src="/lessons.js"></script>
-    <script>
-        const app = new Vue({
-            el: '#app',
-            data: {
-                lessons,
+    <div id="lessons-list" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div v-for="lesson in sortedLessons" :key="lesson.id"
+        class="bg-white rounded-lg shadow-md overflow-hidden p-4 border-l-4 border-blue-500 mb-4">
+        <img :src="`./imgs/${lesson.image}`" :alt="lesson.subject" class="w-full h-48 object-cover object-center mb-4">
+        <h2 class="text-lg font-semibold mb-2 text-blue-500"><strong>Subject:</strong> {{ lesson.subject }}</h2>
+        <p class="text-gray-600 mb-2"><strong>Location:</strong> {{ lesson.location }}</p>
+        <p class="text-gray-800"><strong>Price:</strong> £{{ lesson.price }}</p>
+        <p class="text-gray-600"><strong>Spaces:</strong> {{ lesson.spaces }}</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/lessons.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        lessons,
+        sortBy: 'subject',
+        orderBy: 'asc',
+        sortOptions: ["subject", "location", "price", "spaces"],
+        orders: [
+          {
+            text: "Ascending",
+            value: "asc",
+          },
+          {
+            text: "Descending",
+            value: "desc",
+          },
+        ],
+      },
+      computed: {
+        sortedLessons() {
+            if (this.lessons.length <= 0) return [];
+
+            const sortOrder = this.orderBy === "asc" ? 1 : -1;
+          
+            return this.lessons.slice().sort((a, b) => {
+              const aValue = this.getSortValue(a);
+              const bValue = this.getSortValue(b);
+          
+              return sortOrder * this.compareValues(aValue, bValue);
+            });
+        },
+      },
+      methods: {
+        getSortValue(lesson) {
+            switch (this.sortBy) {
+              case "subject":
+              case "location":
+                return lesson[this.sortBy].toLowerCase();
+              case "price":
+              case "availability":
+                return lesson[this.sortBy];
+              default:
+                return 0;
             }
-        })
-    </script>
+          },
+          compareValues(a, b) {
+            return a > b ? 1 : a < b ? -1 : 0;
+          },
+        capitalize(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+      },
+    });
+  </script>
 </body>
 
 </html>
