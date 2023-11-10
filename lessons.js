@@ -1,0 +1,75 @@
+const lessons = [
+    {
+        id: 1,
+        subject: 'Mathematics',
+        location: 'Room 101',
+        price: 50,
+        spaces: 5,
+        image: "/images/1.png",
+    },
+    {
+        id: 2,
+        subject: 'History',
+        location: 'Room 102',
+        price: 40,
+        spaces: 5,
+        image: "/images/2.png",
+    },
+    {
+        id: 3,
+        subject: 'Science',
+        location: 'Lab A',
+        price: 60,
+        spaces: 5,
+        image: "/images/3.png",
+    },
+    {
+        id: 4,
+        subject: 'English',
+        location: 'Room 103',
+        price: 45,
+        spaces: 5,
+        image: "/images/4.png",
+    },
+    {
+        id: 5,
+        subject: 'Art',
+        location: 'Studio B',
+        price: 55,
+        spaces: 5,
+        image: "/images/5.png",
+    },
+    {
+        id: 6,
+        subject: 'Music',
+        location: 'Auditorium',
+        price: 70,
+        spaces: 5,
+        image: "/images/6.png",
+    },
+    {
+        id: 7,
+        subject: 'Physical Education',
+        location: 'Gymnasium',
+        price: 35,
+        spaces: 5,
+        image: "/images/7.png",
+    },
+    {
+        id: 8,
+        subject: 'Computer Science',
+        location: 'Computer Lab',
+        price: 65,
+        spaces: 5,
+        image: "/images/8.png",
+    },
+    {
+        id: 9,
+        subject: 'Foreign Language',
+        location: 'Room 104',
+        price: 75,
+        spaces: 5,
+        image: "/images/9.png"
+    }
+
+]
