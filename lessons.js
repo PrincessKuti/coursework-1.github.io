@@ -5,7 +5,7 @@ const lessons = [
         location: 'Room 101',
         price: 50,
         spaces: 5,
-        image: "/images/1.png",
+        image: "1.jpg",
     },
     {
         id: 2,
@@ -13,7 +13,7 @@ const lessons = [
         location: 'Room 102',
         price: 40,
         spaces: 5,
-        image: "/images/2.png",
+        image: "2.jpg",
     },
     {
         id: 3,
@@ -21,7 +21,7 @@ const lessons = [
         location: 'Lab A',
         price: 60,
         spaces: 5,
-        image: "/images/3.png",
+        image: "3.jpg",
     },
     {
         id: 4,
@@ -29,7 +29,7 @@ const lessons = [
         location: 'Room 103',
         price: 45,
         spaces: 5,
-        image: "/images/4.png",
+        image: "4.jpg",
     },
     {
         id: 5,
@@ -37,7 +37,7 @@ const lessons = [
         location: 'Studio B',
         price: 55,
         spaces: 5,
-        image: "/images/5.png",
+        image: "5.jpg",
     },
     {
         id: 6,
@@ -45,7 +45,7 @@ const lessons = [
         location: 'Auditorium',
         price: 70,
         spaces: 5,
-        image: "/images/6.png",
+        image: "6.jpg",
     },
     {
         id: 7,
@@ -53,7 +53,7 @@ const lessons = [
         location: 'Gymnasium',
         price: 35,
         spaces: 5,
-        image: "/images/7.png",
+        image: "7.jpg",
     },
     {
         id: 8,
@@ -61,7 +61,7 @@ const lessons = [
         location: 'Computer Lab',
         price: 65,
         spaces: 5,
-        image: "/images/8.png",
+        image: "8.jpg",
     },
     {
         id: 9,
@@ -69,7 +69,7 @@ const lessons = [
         location: 'Room 104',
         price: 75,
         spaces: 5,
-        image: "/images/9.png"
+        image: "9.jpg"
     },
     {
         id: 10,
@@ -77,6 +77,6 @@ const lessons = [
         location: 'Room 105',
         price: 55,
         spaces: 5,
-        image: "/images/10.png",
+        image: "10jpgg",
     },
 ]
