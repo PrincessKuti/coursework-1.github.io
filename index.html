@@ -215,6 +215,9 @@
                     if (lessonIndex !== -1) {
                         this.lessons[lessonIndex].spaces += cartItem.spaces;
                     }
+
+                    // Check if the cart is empty after removing an item
+                    this.showCart = this.shoppingCart.length > 0;
                 },
                 checkout() {
                     if (this.isValidCheckout) {
