@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Coursework 1 - Lessons</title>
-
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-</head>
-<body>
-    <div id="app">
-        
-        <div id>
+    <script src="https://cdn.tailwindcss.com"></script>
 
+    <style type="text/tailwindcss">
+        @layer components {
+          .responsive-container {
+            @apply px-6 mx-auto max-w-full lg:px-12 py-4;
+          }
+        }
+      </style>
+</head>
+
+<body>
+    <div id="app" class="responsive-container">
+
+        <div id="lessons-list" class="grid grid-cols-3 gap-3">
+            <div v-for="lesson in lessons" :key="lesson.id" class="w-full  p-4">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img :src="lesson.image" :alt="lesson.subject" class="w-full h-32 object-cover object-center">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold mb-2"><strong>Subject: </strong>{{ lesson.subject }}</h2>
+                        <p class="text-gray-600 mb-2"><strong>Location:</strong> {{ lesson.location }}</p>
+                        <p class="text-gray-800"><strong>Price:</strong> £{{ lesson.price }}</p>
+                        <p class="text-gray-600"><strong>Spaces:</strong> {{ lesson.spaces }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
 
     </div>
 
@@ -21,9 +43,10 @@
         const app = new Vue({
             el: '#app',
             data: {
-              lessons,
+                lessons,
             }
-          })
+        })
     </script>
 </body>
+
 </html>
