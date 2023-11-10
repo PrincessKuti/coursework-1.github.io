@@ -70,6 +70,13 @@ const lessons = [
         price: 75,
         spaces: 5,
         image: "/images/9.png"
-    }
-
+    },
+    {
+        id: 10,
+        subject: 'Economics',
+        location: 'Room 105',
+        price: 55,
+        spaces: 5,
+        image: "/images/10.png",
+    },
 ]
