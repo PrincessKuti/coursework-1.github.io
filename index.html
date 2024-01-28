@@ -160,13 +160,7 @@
             },
             computed: {
                 sortedLessons() {
-                    const query = this.searchQuery.toLowerCase().trim();
-
                     return this.lessons
-                        .filter(lesson =>
-                            lesson.subject.toLowerCase().includes(query) ||
-                            lesson.location.toLowerCase().includes(query)
-                        )
                         .sort((a, b) => {
                             const order = this.orderBy === 'asc' ? 1 : -1;
                             return a[this.sortBy] > b[this.sortBy] ? order : -order;
@@ -256,6 +250,13 @@
             created() {
                 this.getLessons();
             },
+            watch: {
+                searchQuery: {
+                    handler(val) {
+                        this.getLessons();
+                    },
+                },
+            }
         });
     </script>
 </body>
