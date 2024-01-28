@@ -120,7 +120,12 @@
 
                 <button @click="checkout" :disabled="!isValidCheckout"
                     class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring focus:border-green-300">
-                    Checkout
+                    <div v-if="loading" class="flex h-5 w-5 m-auto relative">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="inline-flex rounded-full h-5 w-5 bg-primary-dark"></span>
+                    </div>
+                    <span v-else>Checkout</span>
                 </button>
                 <p v-if="orderSubmitted" class="mt-4 text-green-500">Order submitted successfully!</p>
             </div>
@@ -189,6 +194,44 @@
                         this.loading = false;
                     }
                 },
+                async createNewOrder(order) {
+                    try {
+                        this.loading = true;
+
+                        const url = `${this.url}/orders`;
+
+                        const response = await fetch(url, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(order),
+                        });
+                    } catch (error) {
+                        this.error = error;
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                async updateLesson(lesson) {
+                    try {
+                        this.loading = true;
+
+                        console.log(lesson)
+
+                        const url = `${this.url}/orders/lessons/${lesson.id}`;
+
+                        const response = await fetch(url, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                lesson,
+                            }),
+                        });
+                    } catch (error) {
+                        this.error = error;
+                    } finally {
+                        this.loading = false;
+                    }
+                },
                 getSortValue(lesson) {
                     switch (this.sortBy) {
                         case "subject":
@@ -211,8 +254,10 @@
                     if (lesson.spaces > 0) {
                         // Add the lesson to the cart
                         this.shoppingCart.push({
-                            id: lesson.id,
+                            id: lesson._id,
                             subject: lesson.subject,
+                            price: lesson.price,
+                            location: lesson.location,
                             spaces: 1,
                         });
 
@@ -241,10 +286,33 @@
                     this.showCart = this.shoppingCart.length > 0;
                 },
                 checkout() {
-                    if (this.isValidCheckout) {
-                        // Display a message confirming the order submission
-                        this.orderSubmitted = true;
+                    // checkout form is not valid
+                    if (!this.isValidCheckout) {
+                        return
                     }
+
+                    console.log(this.shoppingCart)
+
+                    this.shoppingCart.forEach(async (item) => {
+                        await this.createNewOrder({
+                            name: this.checkoutData.name,
+                            phone_number: this.checkoutData.phone,
+                            lesson_id: item.id,
+                            spaces: item.spaces,
+                        });
+
+                        await this.updateLesson(item);
+                    });
+
+                    this.toggleCart();
+
+                    this.shoppingCart = [];
+
+                    this.checkoutData.name = ''
+                    this.checkoutData.email = ''
+
+                    // Display a message confirming the order submission
+                    this.orderSubmitted = true;
                 },
             },
             created() {
