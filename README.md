@@ -1,7 +1,7 @@
-# coursework-1.github.io
+# Vue 3 + Vite
 
-Web Development Coursework 1
+This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-**GitHub Repo Link:** [https://github.com/PrincessKuti/coursework-1.github.io/](https://github.com/PrincessKuti/coursework-1.github.io/)
+## Recommended IDE Setup
 
-**GitHub Pages Link:** [https://princesskuti.github.io/coursework-1.github.io/](https://princesskuti.github.io/coursework-1.github.io/)
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
